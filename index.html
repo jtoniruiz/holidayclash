@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HolidayClash — Find clean weeks across global teams | Public Holidays Planner</title>
+  <meta name="description" content="Compare public holidays across multiple countries. Find clean weeks with no holiday conflicts, spot long weekends, and plan international launches with confidence. Free tool for remote teams and global businesses." />
+  <meta name="keywords" content="public holidays, world holidays, international holidays, holiday calendar, remote teams, global teams, holiday planner, long weekends, bridge days" />
+  <meta name="author" content="HolidayClash" />
+
+  <!-- Open Graph / social sharing -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="HolidayClash — Find clean weeks across global teams" />
+  <meta property="og:description" content="Compare public holidays across multiple countries. Plan launches and meetings without holiday conflicts." />
+  <meta property="og:url" content="https://holidayclash.com/" />
+  <meta property="og:site_name" content="HolidayClash" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="HolidayClash — Find clean weeks across global teams" />
+  <meta name="twitter:description" content="Compare public holidays across multiple countries. Plan launches and meetings without holiday conflicts." />
+
+  <link rel="canonical" href="https://holidayclash.com/" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23E63946'/%3E%3Ctext x='50' y='68' font-family='Georgia,serif' font-size='60' font-weight='bold' fill='white' text-anchor='middle'%3EHC%3C/text%3E%3C/svg%3E" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800;9..144,900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Schema.org structured data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "HolidayClash",
+    "url": "https://holidayclash.com/",
+    "description": "Compare public holidays across multiple countries to find clean weeks for global team planning.",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Decorative background grain -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo" aria-label="HolidayClash home">
+        <span class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" width="32" height="32">
+            <rect x="2" y="2" width="36" height="36" rx="8" fill="currentColor"/>
+            <path d="M12 14 L20 22 L28 14" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <path d="M12 22 L20 30 L28 22" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.6"/>
+          </svg>
+        </span>
+        <span class="logo-text">Holiday<em>Clash</em></span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="#tool">Tool</a>
+        <a href="#how">How it works</a>
+        <a href="/countries/">Countries</a>
+        <a href="/about.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-eyebrow">For distributed teams · 100+ countries · Free forever</div>
+        <h1 class="hero-title">
+          Find the <em>clean weeks</em><br/>
+          your global team<br/>
+          actually shares.
+        </h1>
+        <p class="hero-lede">
+          Stop juggling spreadsheets. Compare public holidays across every country your team works in,
+          spot the weeks where everyone's online, and plan launches without surprise day-offs.
+        </p>
+        <div class="hero-cta">
+          <a href="#tool" class="btn btn-primary">Compare countries →</a>
+          <a href="#how" class="btn btn-ghost">How it works</a>
+        </div>
+
+        <div class="hero-stats">
+          <div><strong>100+</strong><span>countries</span></div>
+          <div><strong>365</strong><span>days mapped</span></div>
+          <div><strong>0€</strong><span>cost, ever</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE TOOL -->
+    <section id="tool" class="tool-section">
+      <div class="container">
+        <div class="tool-header">
+          <h2 class="section-title">The Comparator</h2>
+          <p class="section-sub">Pick the countries your team works in. We'll show you every public holiday for the year ahead, side by side.</p>
+        </div>
+
+        <div class="tool-card">
+
+          <!-- Country picker -->
+          <div class="picker">
+            <div class="picker-row">
+              <label for="country-select" class="picker-label">Add a country</label>
+              <div class="picker-controls">
+                <select id="country-select" aria-label="Select country to add">
+                  <option value="">— Pick a country —</option>
+                </select>
+                <button id="add-country" class="btn btn-primary btn-small" type="button">Add</button>
+              </div>
+            </div>
+
+            <div class="picker-row">
+              <label for="year-select" class="picker-label">Year</label>
+              <select id="year-select" aria-label="Select year">
+              </select>
+            </div>
+
+            <div id="selected-countries" class="selected-countries" aria-live="polite">
+              <!-- Selected country chips appear here -->
+            </div>
+          </div>
+
+          <!-- Results area -->
+          <div id="results" class="results" aria-live="polite">
+            <div class="results-empty">
+              <div class="results-empty-icon">⚡</div>
+              <p>Add at least one country above to see the holiday calendar.</p>
+              <p class="muted">Try popular combinations: <button class="link-btn" data-preset="US,GB,DE">US · UK · Germany</button> · <button class="link-btn" data-preset="US,IN,BR">US · India · Brazil</button></p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how" class="how-section">
+      <div class="container">
+        <h2 class="section-title">How HolidayClash helps</h2>
+
+        <div class="how-grid">
+          <article class="how-card">
+            <div class="how-num">01</div>
+            <h3>Spot the overlaps</h3>
+            <p>See instantly which weeks have multiple countries off at the same time — and which weeks everyone's available.</p>
+          </article>
+          <article class="how-card">
+            <div class="how-num">02</div>
+            <h3>Catch long weekends</h3>
+            <p>Public holidays that fall next to a weekend create three- and four-day breaks. We highlight them automatically for every country.</p>
+          </article>
+          <article class="how-card">
+            <div class="how-num">03</div>
+            <h3>Pick clean launch dates</h3>
+            <p>Planning a global launch, training, or sprint? Filter for weeks where no holiday hits any of your selected markets.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- USE CASES / SEO COPY -->
+    <section class="usecases-section">
+      <div class="container">
+        <h2 class="section-title">Built for teams that work across borders</h2>
+        <div class="usecases-grid">
+          <div class="usecase">
+            <h3>HR &amp; People Ops</h3>
+            <p>Stop maintaining holiday spreadsheets by hand. Reference a single source for every country your employees live in, updated automatically.</p>
+          </div>
+          <div class="usecase">
+            <h3>Project Managers</h3>
+            <p>See at a glance whether your sprint cycle hits a national holiday in any of your team's locations before you commit dates.</p>
+          </div>
+          <div class="usecase">
+            <h3>Marketing &amp; Launches</h3>
+            <p>Coordinate global product launches, ad campaigns, and email sends without accidentally landing on a major day-off in a key market.</p>
+          </div>
+          <div class="usecase">
+            <h3>Logistics &amp; Operations</h3>
+            <p>Anticipate bank holidays and government closures across the countries you ship to, before they bite into your delivery promises.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+      <div class="container">
+        <h2 class="section-title">Common questions</h2>
+        <div class="faq">
+          <details>
+            <summary>Where does the holiday data come from?</summary>
+            <p>HolidayClash uses the open-source <a href="https://date.nager.at/" target="_blank" rel="noopener">Nager.Date</a> public holiday API, which aggregates official government data for 100+ countries and is continuously updated.</p>
+          </details>
+          <details>
+            <summary>Is HolidayClash really free?</summary>
+            <p>Yes. The tool is free to use without registration. We may show display ads to cover hosting costs, but core functionality is free forever.</p>
+          </details>
+          <details>
+            <summary>Do you cover regional or state-level holidays?</summary>
+            <p>For most countries we cover national public holidays. Some countries also include regional subdivisions where the data is officially published. Always double-check region-specific holidays for legally critical decisions.</p>
+          </details>
+          <details>
+            <summary>Can I export the calendar?</summary>
+            <p>An export feature (CSV and iCal) is on the roadmap. For now you can view holidays year-by-year in the tool above.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="logo-text">Holiday<em>Clash</em></span>
+        <p class="muted small">Built for teams that don't all live in the same time zone.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="/about.html">About</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/countries/">All countries</a>
+        <a href="https://date.nager.at/" target="_blank" rel="noopener">Data source</a>
+      </nav>
+      <div class="footer-meta">
+        <p class="muted small">© <span id="year"></span> HolidayClash · Holiday data via Nager.Date</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

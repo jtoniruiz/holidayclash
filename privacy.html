@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — HolidayClash</title>
+  <meta name="description" content="HolidayClash privacy policy. We don't collect personal data. Read the details." />
+  <link rel="canonical" href="https://holidayclash.com/privacy.html" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23E63946'/%3E%3Ctext x='50' y='68' font-family='Georgia,serif' font-size='60' font-weight='bold' fill='white' text-anchor='middle'%3EHC%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800;9..144,900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .page-content { padding: 80px 0; max-width: 720px; margin: 0 auto; }
+    .page-content h1 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 24px; }
+    .page-content h2 { font-size: 1.4rem; margin-top: 36px; margin-bottom: 10px; }
+    .page-content p  { color: var(--ink-soft); margin: 0 0 16px; }
+    .page-content ul { color: var(--ink-soft); padding-left: 22px; margin: 0 0 18px; }
+  </style>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <span class="logo-mark"><svg viewBox="0 0 40 40" width="32" height="32"><rect x="2" y="2" width="36" height="36" rx="8" fill="currentColor"/><path d="M12 14 L20 22 L28 14" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M12 22 L20 30 L28 22" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.6"/></svg></span>
+        <span class="logo-text">Holiday<em>Clash</em></span>
+      </a>
+      <nav class="site-nav">
+        <a href="/#tool">Tool</a>
+        <a href="/about.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container page-content">
+      <h1>Privacy Policy</h1>
+      <p><em>Last updated: <span id="updated"></span></em></p>
+
+      <p>HolidayClash is designed to work without collecting personal data from visitors. This page explains what we do and don't do.</p>
+
+      <h2>What we don't collect</h2>
+      <ul>
+        <li>We don't ask you to register or log in.</li>
+        <li>We don't collect your name, email, or any identifying information.</li>
+        <li>We don't store any record of which countries you compare.</li>
+      </ul>
+
+      <h2>What is collected automatically</h2>
+      <p>Like most websites, our hosting provider (Cloudflare) records anonymous request logs that include your IP address, browser type, and which page you visited. These logs are used for security and infrastructure purposes and are not used to identify or track you personally.</p>
+
+      <h2>Holiday data API</h2>
+      <p>When you select a country, your browser fetches holiday data directly from <a href="https://date.nager.at/" target="_blank" rel="noopener">Nager.Date</a>, an open-source public holiday API. We have no control over their privacy practices; please consult their documentation if needed.</p>
+
+      <h2>Cookies</h2>
+      <p>HolidayClash itself does not set any cookies. If we add analytics or advertising in the future (to support hosting costs), we'll update this page and provide consent options where required by law.</p>
+
+      <h2>Advertising</h2>
+      <p>If display advertising is added in the future, third-party ad networks may set cookies on your browser. We'll update this policy and provide a consent banner before that happens, in compliance with GDPR and ePrivacy rules.</p>
+
+      <h2>Your rights (GDPR)</h2>
+      <p>If you are in the European Union, you have rights under GDPR including access to, correction of, and deletion of any personal data. Since we don't collect personal data, there's nothing to access or delete on our side. If you have questions, you can contact us via the GitHub issues link on the data source page.</p>
+
+      <h2>Changes to this policy</h2>
+      <p>We may update this policy as the site evolves. The date at the top reflects the most recent change.</p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="logo-text">Holiday<em>Clash</em></span>
+      </div>
+      <nav class="footer-nav">
+        <a href="/about.html">About</a>
+        <a href="/privacy.html">Privacy</a>
+      </nav>
+      <div class="footer-meta">
+        <p class="muted small">© <span id="year"></span> HolidayClash</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    document.getElementById("updated").textContent = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+  </script>
+</body>
+</html>
