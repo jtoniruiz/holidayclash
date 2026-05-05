@@ -1,8 +1,10 @@
 /* ==========================================================================
-   HolidayClash — main script
+   HolidayClash — main script (v2)
    - fetches public holidays from Nager.Date
    - renders a multi-country, year-at-a-glance calendar
-   - flags clashes (multiple countries off same day) and long weekends
+   - flags TRUE clashes (different countries off same day)
+   - distinguishes national vs regional holidays
+   - shows ALL holidays per day (no truncation)
    ========================================================================== */
 
 (function () {
@@ -12,15 +14,13 @@
   const COUNTRIES_ENDPOINT = `${API_BASE}/AvailableCountries`;
   const HOLIDAYS_ENDPOINT  = (year, code) => `${API_BASE}/PublicHolidays/${year}/${code}`;
 
-  // simple in-memory cache so we don't re-fetch the same country/year
   const cache = new Map();
 
-  // app state
   const state = {
-    countries: [],          // [{code, name}]
-    selected: [],           // [{code, name}]
+    countries: [],
+    selected: [],
     year: new Date().getFullYear(),
-    holidaysByCountry: {},  // { CC: [holiday, ...] }
+    holidaysByCountry: {},
   };
 
   // --- DOM refs ---
@@ -31,7 +31,6 @@
   const $results       = document.getElementById("results");
   const $year          = document.getElementById("year");
 
-  // --- INIT ---
   document.addEventListener("DOMContentLoaded", init);
 
   async function init() {
@@ -59,12 +58,8 @@
 
   function bindEvents() {
     $addBtn.addEventListener("click", onAddCountry);
-    $countrySelect.addEventListener("change", () => {
-      // pressing Enter in some browsers triggers add via change — ignore here, button handles it.
-    });
     $yearSelect.addEventListener("change", onYearChange);
 
-    // preset country combos
     document.querySelectorAll(".link-btn[data-preset]").forEach(btn => {
       btn.addEventListener("click", () => {
         const codes = btn.dataset.preset.split(",");
@@ -78,7 +73,6 @@
     const res = await fetch(COUNTRIES_ENDPOINT);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
-    // shape: [{ countryCode: "AT", name: "Austria" }, ...]
     state.countries = data
       .map(c => ({ code: c.countryCode, name: c.name }))
       .sort((a, b) => a.name.localeCompare(b.name));
@@ -218,15 +212,17 @@
       }
     }
 
-    // Compute summary
-    const allDates = Object.keys(byDate);
-    const clashDates = allDates.filter(d => byDate[d].length >= 2);
-    const longWeekendDates = computeLongWeekendDates(allDates);
+    // FIX: a "clash" is when DIFFERENT countries share a date,
+    // not just multiple holidays on the same day from one country.
+    const clashDates = Object.keys(byDate).filter(d => {
+      const uniqueCountries = new Set(byDate[d].map(e => e.country.code));
+      return uniqueCountries.size >= 2;
+    });
 
-    // Compute "clean weeks" (ISO weeks with no holiday in any selected country)
-    const cleanWeekCount = computeCleanWeekCount(state.year, byDate);
+    const longWeekendDates = computeLongWeekendDates(Object.keys(byDate));
+    const cleanWeekCount   = computeCleanWeekCount(state.year, byDate);
+    const totalHolidayDays = Object.keys(byDate).length;
 
-    // Build month cards
     const months = Array.from({ length: 12 }, (_, i) => i);
     const monthCards = months.map(monthIndex =>
       buildMonthCard(monthIndex, byDate, clashDates, longWeekendDates)
@@ -235,7 +231,7 @@
     $results.innerHTML = `
       <div class="results-summary">
         <div class="summary-pill">
-          <strong>${allDates.length}</strong>
+          <strong>${totalHolidayDays}</strong>
           <span>holiday days mapped</span>
         </div>
         <div class="summary-pill clash">
@@ -252,20 +248,32 @@
         </div>
       </div>
 
-      <div class="year-grid">${monthCards}</div>
-
-      <div class="legend">
-        <span class="legend-item"><span class="legend-dot clash"></span> Clash — 2+ countries off the same day</span>
-        <span class="legend-item"><span class="legend-dot long-weekend"></span> Long weekend trigger (★)</span>
-        <span class="legend-item"><span class="legend-dot clean"></span> Clean week — no holiday in any selected country</span>
+      <div class="legend legend-top">
+        <span class="legend-item">
+          <span class="legend-icon">🔥</span>
+          <span><strong>Clash</strong> — 2+ countries off the same day</span>
+        </span>
+        <span class="legend-item">
+          <span class="legend-icon">🌉</span>
+          <span><strong>Long weekend</strong> — holiday adjacent to weekend</span>
+        </span>
+        <span class="legend-item">
+          <span class="legend-icon">🌍</span>
+          <span><strong>National</strong> holiday</span>
+        </span>
+        <span class="legend-item">
+          <span class="legend-icon">📍</span>
+          <span><strong>Regional</strong> only</span>
+        </span>
       </div>
+
+      <div class="year-grid">${monthCards}</div>
     `;
   }
 
   function buildMonthCard(monthIndex, byDate, clashDates, longWeekendDates) {
     const monthName = new Date(state.year, monthIndex, 1).toLocaleString("en-US", { month: "long" });
 
-    // Filter holidays in this month
     const entries = Object.entries(byDate)
       .filter(([date]) => parseInt(date.split("-")[1], 10) === monthIndex + 1)
       .sort(([a], [b]) => a.localeCompare(b));
@@ -278,32 +286,53 @@
     } else {
       const items = entries.map(([date, list]) => {
         const day = parseInt(date.split("-")[2], 10);
-        const isClash = list.length >= 2;
+        const isClash = clashDates.includes(date);
         const isLongWeekend = longWeekendDates.includes(date);
 
         let cls = "holiday-item";
         if (isClash) cls += " clash";
         else if (isLongWeekend) cls += " long-weekend";
 
-        // Show first holiday name; if multiple countries, indicate count
-        const first = list[0].holiday;
-        const flagBadges = list.map(({ country }) =>
-          `<span class="flag-badge">${escape(country.code)}</span>`
-        ).join("");
+        const rows = list.map(({ country, holiday }) => {
+          const isNational = holiday.global === true ||
+            !holiday.counties || holiday.counties.length === 0;
+          const scopeIcon = isNational ? "🌍" : "📍";
+          const scopeTitle = isNational
+            ? `National holiday in ${country.name}`
+            : `Regional holiday in ${country.name}${holiday.counties ? ` (${holiday.counties.join(", ")})` : ""}`;
+
+          return `
+            <div class="holiday-row">
+              <span class="flag-badge" title="${escape(country.name)}">${escape(country.code)}</span>
+              <span class="holiday-name" title="${escape(holiday.name)}">${escape(holiday.name)}</span>
+              <span class="scope-icon" title="${escape(scopeTitle)}" aria-label="${escape(scopeTitle)}">${scopeIcon}</span>
+            </div>
+          `;
+        }).join("");
+
+        const statusIcons = [];
+        if (isClash) statusIcons.push(`<span class="status-icon clash-icon" title="Clash — multiple countries off">🔥</span>`);
+        if (isLongWeekend) statusIcons.push(`<span class="status-icon lw-icon" title="Long weekend trigger">🌉</span>`);
 
         return `
           <li class="${cls}">
-            <span class="holiday-date">${day}</span>
-            <span class="holiday-name">${escape(first.name)}${list.length > 1 ? ` <em class="muted small">+ ${list.length - 1} more</em>` : ""}</span>
-            <span class="holiday-flags">${flagBadges}</span>
+            <div class="holiday-head">
+              <span class="holiday-date">${day}</span>
+              ${statusIcons.length ? `<span class="holiday-status">${statusIcons.join("")}</span>` : ""}
+            </div>
+            <div class="holiday-rows">${rows}</div>
           </li>
         `;
       }).join("");
 
       body = `<ul class="holiday-list">${items}</ul>`;
-      tag = entries.length >= 3
-        ? `<span class="month-tag busy">BUSY</span>`
-        : "";
+
+      const monthClashCount = entries.filter(([d]) => clashDates.includes(d)).length;
+      if (monthClashCount >= 2 || entries.length >= 4) {
+        tag = `<span class="month-tag busy">BUSY</span>`;
+      } else {
+        tag = "";
+      }
     }
 
     return `
@@ -316,25 +345,14 @@
 
   // --- HELPERS ---
 
-  /**
-   * A "long weekend trigger" is a public holiday that falls on
-   * Friday or Monday (extending the weekend to 3 days),
-   * or on Thursday/Tuesday (creating a potential bridge).
-   */
   function computeLongWeekendDates(dateStrings) {
     return dateStrings.filter(d => {
-      const day = new Date(d + "T00:00:00Z").getUTCDay(); // 0=Sun ... 6=Sat
-      // Mon (1), Tue (2), Thu (4), Fri (5)
+      const day = new Date(d + "T00:00:00Z").getUTCDay();
       return [1, 2, 4, 5].includes(day);
     });
   }
 
-  /**
-   * Count ISO weeks of the year that have ZERO holidays
-   * in any selected country.
-   */
   function computeCleanWeekCount(year, byDate) {
-    // Build set of week numbers that DO have a holiday
     const dirtyWeeks = new Set();
     for (const dateStr of Object.keys(byDate)) {
       const wk = isoWeek(new Date(dateStr + "T00:00:00Z"));
@@ -345,20 +363,14 @@
   }
 
   function isoWeek(d) {
-    // Copy date so we don't mutate
     const date = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
-    // Set to nearest Thursday: current date + 4 - current day number
-    // Make Sunday's day number 7
     const dayNum = date.getUTCDay() || 7;
     date.setUTCDate(date.getUTCDate() + 4 - dayNum);
-    // Get first day of year
     const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
-    // Calculate full weeks to nearest Thursday
     return Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
   }
 
   function isoWeeksInYear(year) {
-    // ISO week year has 53 weeks if year starts on Thursday or is a leap year that starts on Wednesday
     const dec28 = new Date(Date.UTC(year, 11, 28));
     return isoWeek(dec28);
   }
