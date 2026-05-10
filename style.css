@@ -637,3 +637,323 @@ select:focus { outline: none; border-color: var(--clash); }
     to   { opacity: 1; transform: translateY(0); }
   }
 }
+/* ==========================================================================
+   HolidayClash — SEO pages additions
+   Styles for country pages, country index, breadcrumbs, tables, etc.
+   Append this to the bottom of style.css.
+   ========================================================================== */
+
+/* ---------- breadcrumb ---------- */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--ink-mute);
+  margin: 32px 0 24px;
+  flex-wrap: wrap;
+}
+.breadcrumb a {
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+.breadcrumb a:hover {
+  color: var(--clash);
+  text-decoration: underline;
+}
+.breadcrumb span[aria-hidden="true"] {
+  color: var(--ink-mute);
+  opacity: 0.6;
+}
+
+/* ---------- country page ---------- */
+.country-page {
+  padding-bottom: 80px;
+}
+
+.country-eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  background: var(--cream-deep);
+  border: 1px solid var(--rule);
+  padding: 5px 12px;
+  border-radius: 999px;
+  margin-bottom: 18px;
+}
+
+.country-header {
+  max-width: 760px;
+  padding: 24px 0 40px;
+}
+.country-header h1 {
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  margin: 0 0 16px;
+  line-height: 1.05;
+}
+.country-lede {
+  font-size: 1.1rem;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* country stats strip */
+.country-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+  padding: 24px 28px;
+  background: var(--cream-deep);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-lg);
+  margin: 8px 0 48px;
+}
+.country-stats .stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.country-stats .stat strong {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  line-height: 1;
+}
+.country-stats .stat span {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-mute);
+}
+
+.country-section {
+  margin: 48px 0;
+}
+.country-section h2 {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  margin: 0 0 20px;
+}
+
+/* ---------- holidays table ---------- */
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  background: white;
+}
+.holidays-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14.5px;
+}
+.holidays-table thead th {
+  text-align: left;
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-mute);
+  background: var(--cream);
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--rule);
+}
+.holidays-table tbody tr {
+  border-bottom: 1px solid var(--rule);
+  transition: background 0.15s ease;
+}
+.holidays-table tbody tr:last-child {
+  border-bottom: none;
+}
+.holidays-table tbody tr:hover {
+  background: var(--cream);
+}
+.holidays-table td {
+  padding: 14px 16px;
+  vertical-align: top;
+  line-height: 1.4;
+}
+.cell-date {
+  white-space: nowrap;
+  min-width: 130px;
+}
+.cell-name {
+  color: var(--ink);
+  font-weight: 500;
+}
+.cell-scope {
+  color: var(--ink-soft);
+  white-space: nowrap;
+  font-size: 13.5px;
+}
+.cell-tags {
+  white-space: nowrap;
+}
+
+.badge {
+  display: inline-block;
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.badge-gold {
+  background: var(--gold-bg);
+  color: var(--gold-deep);
+  border: 1px solid var(--gold-border);
+}
+.badge-soft {
+  background: var(--cream-deep);
+  color: var(--ink-soft);
+  border: 1px solid var(--rule);
+}
+
+.empty-note {
+  color: var(--ink-mute);
+  font-style: italic;
+  padding: 18px;
+  background: var(--cream-deep);
+  border: 1px dashed var(--rule);
+  border-radius: var(--radius-md);
+}
+
+/* ---------- country CTA ---------- */
+.country-cta {
+  background: var(--ink);
+  color: var(--cream);
+  padding: 40px 32px;
+  border-radius: var(--radius-lg);
+  margin: 48px 0;
+  text-align: center;
+}
+.country-cta h2 {
+  color: var(--cream);
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  margin: 0 0 12px;
+}
+.country-cta h2 em {
+  color: var(--clash);
+}
+.country-cta p {
+  max-width: 56ch;
+  margin: 0 auto 24px;
+  color: rgba(244,239,230,0.75);
+  line-height: 1.6;
+}
+.country-cta .btn {
+  background: var(--clash);
+  color: white;
+  border: none;
+}
+.country-cta .btn:hover {
+  background: white;
+  color: var(--ink);
+}
+
+/* ---------- countries index page ---------- */
+.index-page {
+  padding-bottom: 80px;
+}
+.index-header {
+  max-width: 760px;
+  padding: 24px 0 32px;
+}
+.index-header h1 {
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  margin: 0 0 16px;
+  line-height: 1.05;
+}
+
+.alpha-nav {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  padding: 16px 20px;
+  background: var(--cream-deep);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  margin-bottom: 40px;
+}
+.alpha-nav a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-weight: 700;
+  font-family: var(--font-display);
+  text-decoration: none;
+  color: var(--ink);
+  background: white;
+  border: 1px solid var(--rule);
+  transition: all 0.15s ease;
+}
+.alpha-nav a:hover {
+  background: var(--ink);
+  color: var(--cream);
+  text-decoration: none;
+}
+
+.countries-index {
+  display: grid;
+  gap: 32px;
+}
+.letter-group {
+  border-top: 2px solid var(--rule);
+  padding-top: 20px;
+}
+.letter-heading {
+  font-size: 2.5rem;
+  font-family: var(--font-display);
+  font-weight: 900;
+  color: var(--clash);
+  margin: 0 0 16px;
+  letter-spacing: -0.02em;
+}
+.country-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 4px 24px;
+}
+.country-list li {
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--rule);
+}
+.country-list a {
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 500;
+}
+.country-list a:hover {
+  color: var(--clash);
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 640px) {
+  .holidays-table {
+    font-size: 13px;
+  }
+  .holidays-table thead th,
+  .holidays-table td {
+    padding: 10px 12px;
+  }
+  .country-cta {
+    padding: 32px 20px;
+  }
+  .country-stats {
+    padding: 20px;
+  }
+  .country-stats .stat strong {
+    font-size: 1.6rem;
+  }
+}
