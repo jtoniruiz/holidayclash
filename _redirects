@@ -1,0 +1,5 @@
+# Redirect all extensionless country URLs to their .html versions
+/countries/:slug /countries/:slug.html 301
+
+# Redirect all extensionless compare URLs to their .html versions
+/compare/:slug /compare/:slug.html 301
