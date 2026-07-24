@@ -1,8 +1,0 @@
-# Redirect specific extensionless country/compare URLs to .html
-# Uses negative lookahead pattern via explicit exclusions
-
-/countries/*.html /countries/:splat.html 200
-/compare/*.html /compare/:splat.html 200
-
-/countries/* /countries/:splat.html 301
-/compare/* /compare/:splat.html 301
