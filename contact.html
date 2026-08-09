@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — HolidayClash</title>
+  <meta name="description" content="Get in touch with the HolidayClash team. Report data issues, suggest features, or ask a question." />
+  <link rel="canonical" href="https://holidayclash.com/contact.html" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23E63946'/%3E%3Ctext x='50' y='68' font-family='Georgia,serif' font-size='60' font-weight='bold' fill='white' text-anchor='middle'%3EHC%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800;9..144,900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    .page-content { padding: 80px 0; max-width: 720px; margin: 0 auto; }
+    .page-content h1 { font-size: clamp(2rem, 5vw, 3.4rem); margin-bottom: 24px; }
+    .page-content h2 { font-size: 1.6rem; margin-top: 48px; margin-bottom: 12px; }
+    .page-content p  { color: var(--ink-soft); margin: 0 0 18px; font-size: 1.05rem; }
+    .contact-box {
+      background: var(--cream-deep);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      margin: 24px 0;
+    }
+    .contact-email {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--clash);
+      word-break: break-all;
+    }
+    .contact-email a {
+      color: var(--clash);
+      text-decoration: none;
+    }
+    .contact-email a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo" aria-label="HolidayClash home">
+        <span class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" width="32" height="32">
+            <rect x="2" y="2" width="36" height="36" rx="8" fill="currentColor"/>
+            <path d="M12 14 L20 22 L28 14" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <path d="M12 22 L20 30 L28 22" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.6"/>
+          </svg>
+        </span>
+        <span class="logo-text">Holiday<em>Clash</em></span>
+      </a>
+      <nav class="site-nav">
+        <a href="/#tool">Tool</a>
+        <a href="/#how">How it works</a>
+        <a href="/countries/">Countries</a>
+        <a href="/about.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container page-content">
+      <h1>Contact <em>us</em></h1>
+
+      <p>Got feedback, a bug to report, or a feature request? We'd love to hear from you.</p>
+
+      <div class="contact-box">
+        <p><strong>Email:</strong></p>
+        <p class="contact-email"><a href="mailto:info@holidayclash.com">info@holidayclash.com</a></p>
+        <p class="muted small">We aim to respond within 5 business days.</p>
+      </div>
+
+      <h2>What to reach out about</h2>
+
+      <p><strong>Data corrections.</strong> If you spot an incorrect or missing public holiday, please note that we source data from the open-source <a href="https://date.nager.at/" target="_blank" rel="noopener">Nager.Date</a> API. Corrections should ideally be reported at their <a href="https://github.com/nager/Nager.Date/issues" target="_blank" rel="noopener">GitHub issues page</a> so all downstream users benefit. You can also let us know and we'll flag it upstream.</p>
+
+      <p><strong>Feature suggestions.</strong> Things you'd love HolidayClash to do next? Frequently requested: iCal export, historical data, more country coverage, custom notifications. Tell us what would make this more useful for your team.</p>
+
+      <p><strong>Bug reports.</strong> If something looks broken or doesn't work as expected, describe what you did, what you expected to see, and what actually happened. Include your browser and device if possible.</p>
+
+      <p><strong>Partnership or licensing.</strong> If you'd like to use HolidayClash data or embed our tool in your product, get in touch.</p>
+
+      <p><strong>Advertising and business inquiries.</strong> For advertising partnerships or business-related questions, please write us with details of your request.</p>
+
+      <p><strong>Anything else.</strong> Say hi. We read every message.</p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="logo-text">Holiday<em>Clash</em></span>
+        <p class="muted small">Built for teams that don't all live in the same time zone.</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="/about.html">About</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/terms.html">Terms</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+      <div class="footer-meta">
+        <p class="muted small">© <span id="year"></span> HolidayClash</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
